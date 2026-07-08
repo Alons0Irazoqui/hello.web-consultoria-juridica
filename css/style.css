@@ -198,6 +198,15 @@ h1,h2,h3,h4{
   transition:opacity .75s var(--ease), visibility .75s var(--ease);
 }
 #loading-screen.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+#loading-screen::before{
+  content:'';
+  position:absolute; inset:0;
+  background-image:radial-gradient(rgba(232,204,126,.35) 1px, transparent 1px);
+  background-size:34px 34px;
+  opacity:.16;
+  animation:loaderDrift 14s linear infinite;
+}
+@keyframes loaderDrift{ to{ background-position:0 -340px; } }
 .loader-emblem{
   position:relative;
   width:132px; height:132px;
@@ -205,48 +214,50 @@ h1,h2,h3,h4{
   animation:loaderPulse 2.2s ease-in-out infinite;
   filter:drop-shadow(0 0 26px rgba(201,162,39,.35));
 }
-.loader-emblem::before{
-  content:'';
-  position:absolute; inset:-16px;
-  border-radius:50%;
-  background:conic-gradient(from 0deg, transparent 0%, var(--gold-400) 18%, transparent 40%);
-  -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
-  mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
-  animation:loaderSpin 2.6s linear infinite;
+.loader-ring{
+  position:absolute; inset:-18px;
+  width:calc(100% + 36px); height:calc(100% + 36px);
+  transform:rotate(-90deg);
 }
-.loader-emblem img{ width:100%; height:100%; object-fit:contain; position:relative; z-index:1; }
+.loader-ring-track{
+  fill:none;
+  stroke:rgba(232,204,126,.14);
+  stroke-width:2;
+}
+.loader-ring-progress{
+  fill:none;
+  stroke:var(--gold-400);
+  stroke-width:2;
+  stroke-linecap:round;
+  filter:drop-shadow(0 0 6px rgba(217,182,86,.65));
+  transition:stroke-dashoffset .1s linear;
+}
+.loader-emblem img{ width:64%; height:64%; object-fit:contain; position:relative; z-index:1; }
 @keyframes loaderPulse{
   0%,100%{ transform:scale(1); opacity:.92; }
   50%{ transform:scale(1.06); opacity:1; }
 }
-@keyframes loaderSpin{
-  to{ transform:rotate(360deg); }
-}
 .loader-text{
-  margin-top:22px;
+  position:relative; z-index:1;
+  margin-top:26px;
   font-family:var(--font-serif);
-  color:var(--gold-300);
   letter-spacing:4px;
   font-size:.82rem;
   text-transform:uppercase;
+  background:linear-gradient(90deg, var(--gold-300) 0%, var(--gold-100) 22%, var(--gold-300) 44%, var(--gold-300) 100%);
+  background-size:220% auto;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation:loaderShine 2.6s linear infinite;
 }
-.loader-bar{
-  margin-top:22px;
-  width:200px; height:2px;
-  background:rgba(232,204,126,.18);
-  border-radius:2px;
-  overflow:hidden;
-}
-.loader-bar::after{
-  content:'';
-  display:block;
-  height:100%; width:40%;
-  background:var(--gold-grad);
-  animation:loaderSlide 1.3s ease-in-out infinite;
-}
-@keyframes loaderSlide{
-  0%{ transform:translateX(-120%); }
-  100%{ transform:translateX(340%); }
+@keyframes loaderShine{ to{ background-position:-220% center; } }
+.loader-pct{
+  position:relative; z-index:1;
+  margin-top:10px;
+  font-family:var(--font-sans);
+  font-size:.72rem;
+  letter-spacing:2px;
+  color:rgba(232,204,126,.55);
+  font-variant-numeric:tabular-nums;
 }
 
 /* =========================================================
@@ -362,11 +373,19 @@ h1,h2,h3,h4{
   0%,100%{ transform:translateY(0) rotate(0deg); }
   50%{ transform:translateY(-18px) rotate(2deg); }
 }
+.hero-particles{
+  position:absolute; inset:0;
+  z-index:1;
+  pointer-events:none;
+}
 .hero h1{
   color:var(--paper);
-  font-size:clamp(2.3rem,4.6vw,3.7rem);
-  font-weight:700;
-  margin-top:20px;
+  font-size:clamp(1.9rem,3.4vw,2.9rem);
+  font-weight:600;
+  line-height:1.32;
+  letter-spacing:-.3px;
+  max-width:600px;
+  margin-top:18px;
 }
 .hero h1 em{
   font-style:normal;
@@ -375,6 +394,23 @@ h1,h2,h3,h4{
   background-clip:text;
   color:transparent;
 }
+.hero h1 .tw-cycle{
+  position:relative;
+  background:var(--gold-grad);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero h1 .tw-cycle::after{
+  content:'';
+  display:inline-block;
+  width:2px; height:.8em;
+  margin-left:3px;
+  background:var(--gold-400);
+  vertical-align:-2px;
+  animation:caretBlink .9s step-end infinite;
+}
+@keyframes caretBlink{ 50%{ opacity:0; } }
 .hero p.lead{
   color:#c7d0e0;
   font-size:1.15rem;
