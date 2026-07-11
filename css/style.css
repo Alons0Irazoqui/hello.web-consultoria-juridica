@@ -474,6 +474,15 @@ h1,h2,h3,h4{
 }
 .hero-card .who div strong{ display:block; color:var(--paper); font-size:.92rem; }
 .hero-card .who div span{ font-size:.76rem; color:var(--gold-300); }
+.hero-card .who-secondary{
+  margin-top:14px; padding-top:14px; border-top:1px dashed rgba(232,204,126,.16);
+}
+.hero-card .who-secondary .mono-sm{
+  width:36px; height:36px; font-size:.72rem;
+  background:rgba(232,204,126,.14); color:var(--gold-300);
+}
+.hero-card .who-secondary div strong{ font-size:.84rem; }
+.hero-card .who-secondary div span{ font-size:.7rem; color:#a9b4c8; }
 
 .scroll-cue{
   position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
@@ -640,6 +649,11 @@ h1,h2,h3,h4{
   border-radius:8px;
   overflow:hidden;
   position:relative;
+}
+.attorney-card-principal{
+  border:1px solid var(--gold-500);
+  background:linear-gradient(180deg, rgba(201,162,39,.14) 0%, var(--navy-900) 46%);
+  box-shadow:0 20px 50px -22px rgba(201,162,39,.5);
 }
 .attorney-media{
   position:relative;
