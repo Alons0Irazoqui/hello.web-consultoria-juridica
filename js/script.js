@@ -143,8 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         (message ? `Mensaje: ${message}%0A` : '') +
         `Solicito una consulta confidencial.`;
 
-      const isPenal = area.toLowerCase().includes('penal') || area.toLowerCase().includes('amparo');
-      const number = isPenal ? '522295227860' : '522293383693';
+      const number = '522295227860';
 
       window.open(`https://wa.me/${number}?text=${text}`, '_blank');
       form.reset();
